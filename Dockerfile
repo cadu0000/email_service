@@ -1,4 +1,4 @@
-FROM rust:1.81-slim AS builder
+FROM rust:latest AS builder
 WORKDIR /app
 
 COPY Cargo.toml Cargo.lock ./
@@ -14,6 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY --from=builder /app/target/release/notification-worker ./app
+COPY --from=builder /app/target/release/email_service ./app
 
 CMD ["./app"]
